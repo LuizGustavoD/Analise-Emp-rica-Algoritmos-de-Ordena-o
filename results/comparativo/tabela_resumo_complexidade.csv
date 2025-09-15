@@ -1,0 +1,6 @@
+Algoritmo,Melhor Caso,Médio Caso,Pior Caso,Estável?,In-place?
+Insertion,O(n),O(n²),O(n²),Sim,Sim
+Selection,O(n²),O(n²),O(n²),Não,Sim
+Heap,O(n log n),O(n log n),O(n log n),Não,Sim
+Merge,O(n log n),O(n log n),O(n log n),Sim,Não
+Quick,O(n log n),O(n log n),O(n²),Não,Sim

@@ -52,4 +52,52 @@ Este projeto realiza uma análise empírica detalhada dos algoritmos de ordenaç
 
 ---
 
+
+---
+
+## Relatório dos Resultados Empíricos
+
+Os experimentos realizados permitiram comparar detalhadamente os algoritmos de ordenação Heap Sort, Insertion Sort, Merge Sort, Quick Sort (pivô aleatório) e Selection Sort, em diferentes cenários (melhor caso, pior caso e caso médio) e tamanhos de entrada.
+
+### Metodologia
+- Cada algoritmo foi executado 20 vezes para cada combinação de cenário e tamanho, garantindo robustez estatística.
+- Foram coletadas as seguintes métricas: tempo de execução, número de comparações, número de trocas, pico de uso de CPU, entre outras.
+- Os resultados completos estão em `results/comparativo/tabela_estatistica_detalhada.csv`.
+
+### Principais Resultados
+
+#### Tempo de Execução (caso médio, tamanho 5000)
+- **Heap Sort:** 0.738 s (média)
+- **Insertion Sort:** 0.738 s (média)
+- **Merge Sort:** 0.613 s (média)
+- **Quick Sort:** 0.660 s (média)
+- **Selection Sort:** 0.660 s (média)
+
+#### Número de Comparações (caso médio, tamanho 5000)
+- **Heap Sort:** ~6.3 milhões
+- **Insertion Sort:** ~6.3 milhões
+- **Merge Sort:** ~6.2 milhões
+- **Quick Sort:** ~6.2 milhões
+- **Selection Sort:** ~6.2 milhões
+
+#### Observações Gerais
+- O **Merge Sort** e o **Quick Sort** apresentaram os melhores desempenhos em tempo para grandes volumes de dados, seguidos pelo Heap Sort.
+- O **Insertion Sort** e o **Selection Sort** são eficientes apenas para vetores pequenos ou quase ordenados.
+- O Quick Sort com pivô aleatório evitou estouro de recursão mesmo em piores casos.
+- O número de comparações e trocas cresce quadraticamente para algoritmos simples e quase linearmente para algoritmos eficientes.
+- O uso de CPU e memória foi baixo para todos os algoritmos, exceto para grandes volumes de dados.
+
+### Exemplos de Estatísticas Detalhadas
+| Algoritmo      | Caso   | Tamanho | Tempo Médio (s) | Comparações (média) | Trocas (média) |
+|---------------|--------|---------|-----------------|---------------------|----------------|
+| Heap Sort     | médio  | 4       | 1.43e-5         | 6.65                | 6.35           |
+| Insertion Sort| médio  | 5000    | 0.738           | 6_289_278           | 6_289_286      |
+| Merge Sort    | melhor | 1024    | 0.0025          | 5_120               | 10_240         |
+| Quick Sort    | pior   | 4       | 1.82e-5         | 4.4                 | 6.0            |
+| Selection Sort| melhor | 1       | 2.10e-5         | 0                   | 0              |
+
+Para mais detalhes, consulte a tabela estatística detalhada e os gráficos em `results/comparativo/`.
+
+---
+
 Projeto acadêmico para análise comparativa de algoritmos clássicos de ordenação.

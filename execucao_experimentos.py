@@ -4,25 +4,25 @@ Executa cada algoritmo nos vetores de teste, coleta tempo, pico de CPU e métric
 """
 import time
 import sys
-sys.setrecursionlimit(10000)
+#sys.setrecursionlimit(10000)
 import psutil
 import pandas as pd
 from algoritmos.sorts import heap_sort, insertion_sort, merge_sort, quick_sort, selection_sort
 from utils.gerador_vetores import gerar_vetor_melhor_caso, gerar_vetor_pior_caso, gerar_vetor_caso_medio
 
 ALGOS = {
-    'heap_sort': heap_sort,
-    'insertion_sort': insertion_sort,
-    'merge_sort': merge_sort,
     'quick_sort': quick_sort,
+    'heap_sort': heap_sort,
+    'merge_sort': merge_sort,
+    'insertion_sort': insertion_sort,
     'selection_sort': selection_sort
 }
 
-TAMANHOS_GRANDES = [2**i for i in range(0, 21, 2)]  # 1, 4, 16, ..., 1048576
-TAMANHOS_PEQUENOS = [1, 10, 50, 100, 500, 1000, 5000, 10000, 50000]
+TAMANHOS_GRANDES = [1, 4, 16, 64, 256, 1024, 4096, 16384, 65536, 262144, 1048576]
+TAMANHOS_PEQUENOS = [1, 10, 50, 100, 500, 1000, 5000, 10000, 20000, 50000]
 
 CASOS = ['melhor', 'pior', 'medio']
-REPETICOES = 15
+REPETICOES = 20
 
 def executar_experimentos():
     import os, json
@@ -73,6 +73,12 @@ def executar_experimentos():
 
     df = pd.DataFrame(resultados)
     df.to_csv(os.path.join(results_dir, 'resultados_experimentos.csv'), index=False)
+
+    # Calcular estatísticas agregadas para cada algoritmo, caso e tamanho
+    colunas_metricas = [col for col in df.columns if col not in ['algoritmo', 'caso', 'tamanho', 'repeticao']]
+    agregados = df.groupby(['algoritmo', 'caso', 'tamanho'])[colunas_metricas].agg(['mean', 'std', 'min', 'max']).reset_index()
+    agregados.to_csv(os.path.join(results_dir, 'estatisticas_agrupadas.csv'), index=False)
+    print('\nEstatísticas agregadas (média, desvio padrão, mínimo, máximo) salvas em results/estatisticas_agrupadas.csv')
     return df
 
 # Bloco principal para execução direta
